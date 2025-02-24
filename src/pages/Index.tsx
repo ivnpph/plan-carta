@@ -16,9 +16,9 @@ const ANNUAL_DISCOUNT = 0.8; // 20% off
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#9b87f5",
-      light: "#e5deff",
-      dark: "#7e69ab",
+      main: "#005fd7",
+      light: "#e6f0ff",
+      dark: "#004fb4",
     },
   },
   typography: {
@@ -53,15 +53,6 @@ const theme = createTheme({
 
 const Index = () => {
   const [isAnnual, setIsAnnual] = useState(false);
-  const [userCounts, setUserCounts] = useState({
-    essential: 1,
-    premium: 1,
-    enterprise: 1,
-  });
-
-  const handleUserCountChange = (plan: keyof typeof userCounts, count: number) => {
-    setUserCounts((prev) => ({ ...prev, [plan]: count }));
-  };
 
   const getPriceWithDiscount = (basePrice: number) => {
     return isAnnual ? Math.floor(basePrice * ANNUAL_DISCOUNT) : basePrice;
@@ -89,16 +80,13 @@ const Index = () => {
                 title="Essential"
                 price={getPriceWithDiscount(MONTHLY_PRICES.essential)}
                 period={isAnnual ? "year" : "month"}
+                description="Perfect for individuals and small teams just getting started"
                 features={[
                   "Up to 10 projects",
                   "Basic analytics",
                   "24/7 email support",
                   "2 team members",
                 ]}
-                userCount={userCounts.essential}
-                onUserCountChange={(count) =>
-                  handleUserCountChange("essential", count)
-                }
               />
             </Grid>
             <Grid item xs={12} md={4}>
@@ -106,6 +94,7 @@ const Index = () => {
                 title="Premium"
                 price={getPriceWithDiscount(MONTHLY_PRICES.premium)}
                 period={isAnnual ? "year" : "month"}
+                description="Best for growing teams that need more features and flexibility"
                 features={[
                   "Unlimited projects",
                   "Advanced analytics",
@@ -114,10 +103,6 @@ const Index = () => {
                   "Custom integrations",
                 ]}
                 isPopular
-                userCount={userCounts.premium}
-                onUserCountChange={(count) =>
-                  handleUserCountChange("premium", count)
-                }
               />
             </Grid>
             <Grid item xs={12} md={4}>
@@ -125,6 +110,7 @@ const Index = () => {
                 title="Enterprise"
                 price={getPriceWithDiscount(MONTHLY_PRICES.enterprise)}
                 period={isAnnual ? "year" : "month"}
+                description="Advanced features and support for large-scale organizations"
                 features={[
                   "Unlimited everything",
                   "Custom analytics",
@@ -133,10 +119,6 @@ const Index = () => {
                   "Advanced security",
                   "Custom branding",
                 ]}
-                userCount={userCounts.enterprise}
-                onUserCountChange={(count) =>
-                  handleUserCountChange("enterprise", count)
-                }
               />
             </Grid>
           </Grid>

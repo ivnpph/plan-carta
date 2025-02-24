@@ -8,32 +8,29 @@ import {
   Chip,
 } from "@mui/material";
 import { FeatureList } from "./FeatureList";
-import { UserSelector } from "./UserSelector";
 
 interface PricingCardProps {
   title: string;
   price: number;
   period: "month" | "year";
+  description: string;
   features: string[];
   isPopular?: boolean;
-  userCount: number;
-  onUserCountChange: (count: number) => void;
 }
 
 export const PricingCard = ({
   title,
   price,
   period,
+  description,
   features,
   isPopular,
-  userCount,
-  onUserCountChange,
 }: PricingCardProps) => {
   const formattedPrice = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
     minimumFractionDigits: 0,
-  }).format(price * userCount);
+  }).format(price);
 
   return (
     <Card
@@ -69,7 +66,13 @@ export const PricingCard = ({
             /{period}
           </Typography>
         </Box>
-        <UserSelector userCount={userCount} onChange={onUserCountChange} />
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{ mt: 2, minHeight: 48 }}
+        >
+          {description}
+        </Typography>
         <FeatureList features={features} />
         <Button
           variant={isPopular ? "contained" : "outlined"}
