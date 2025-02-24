@@ -1,4 +1,5 @@
 
+import { Stack, Typography, Switch, Chip } from "@mui/material";
 import { useState } from "react";
 
 interface BillingToggleProps {
@@ -15,28 +16,38 @@ export const BillingToggle = ({ onChange }: BillingToggleProps) => {
   };
 
   return (
-    <div className="flex items-center justify-center space-x-4 mb-8">
-      <span className={`${!isAnnual ? "text-gray-900" : "text-gray-500"}`}>
-        Monthly
-      </span>
-      <button
-        onClick={handleToggle}
-        className="relative w-14 h-7 rounded-full bg-accent transition-colors duration-200 ease-in-out"
+    <Stack
+      direction="row"
+      spacing={2}
+      alignItems="center"
+      justifyContent="center"
+      sx={{ mb: 4 }}
+    >
+      <Typography
+        variant="body1"
+        color={!isAnnual ? "primary" : "text.secondary"}
       >
-        <span
-          className={`absolute left-1 top-1 w-5 h-5 rounded-full bg-white transform transition-transform duration-200 ease-in-out ${
-            isAnnual ? "translate-x-7" : ""
-          }`}
-        />
-      </button>
-      <div className="flex items-center space-x-2">
-        <span className={`${isAnnual ? "text-gray-900" : "text-gray-500"}`}>
+        Monthly
+      </Typography>
+      <Switch
+        checked={isAnnual}
+        onChange={handleToggle}
+        color="primary"
+      />
+      <Stack direction="row" spacing={1} alignItems="center">
+        <Typography
+          variant="body1"
+          color={isAnnual ? "primary" : "text.secondary"}
+        >
           Annual
-        </span>
-        <span className="text-sm text-accent-dark font-medium px-2 py-1 rounded-full bg-accent-light">
-          Save 20%
-        </span>
-      </div>
-    </div>
+        </Typography>
+        <Chip
+          label="Save 20%"
+          size="small"
+          color="primary"
+          variant="outlined"
+        />
+      </Stack>
+    </Stack>
   );
 };

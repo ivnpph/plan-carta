@@ -1,5 +1,12 @@
 
-import { motion } from "framer-motion";
+import {
+  Card,
+  CardContent,
+  Typography,
+  Button,
+  Box,
+  Chip,
+} from "@mui/material";
 import { FeatureList } from "./FeatureList";
 import { UserSelector } from "./UserSelector";
 
@@ -29,37 +36,51 @@ export const PricingCard = ({
   }).format(price * userCount);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
-      className={`pricing-card rounded-2xl p-6 ${
-        isPopular
-          ? "glass-card ring-2 ring-accent"
-          : "bg-white border border-gray-200"
-      }`}
+    <Card
+      raised={isPopular}
+      sx={{
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        position: "relative",
+        transition: "transform 0.2s ease-in-out",
+        "&:hover": {
+          transform: "translateY(-4px)",
+        },
+      }}
     >
-      {isPopular && (
-        <span className="px-3 py-1 text-xs font-medium text-accent bg-accent-light rounded-full">
-          Most Popular
-        </span>
-      )}
-      <h3 className="text-xl font-semibold mt-4">{title}</h3>
-      <div className="mt-4 flex items-baseline">
-        <span className="text-4xl font-bold">{formattedPrice}</span>
-        <span className="ml-2 text-gray-500">/{period}</span>
-      </div>
-      <UserSelector userCount={userCount} onChange={onUserCountChange} />
-      <FeatureList features={features} />
-      <button
-        className={`w-full mt-8 px-6 py-3 rounded-lg font-medium transition-all duration-200 ${
-          isPopular
-            ? "bg-accent text-white hover:bg-accent-dark"
-            : "bg-gray-900 text-white hover:bg-gray-800"
-        }`}
-      >
-        Get Started
-      </button>
-    </motion.div>
+      <CardContent sx={{ flexGrow: 1, p: 3 }}>
+        {isPopular && (
+          <Chip
+            label="Most Popular"
+            color="primary"
+            size="small"
+            sx={{ position: "absolute", top: 16, right: 16 }}
+          />
+        )}
+        <Typography variant="h5" component="h3" gutterBottom>
+          {title}
+        </Typography>
+        <Box sx={{ mt: 2, mb: 1 }}>
+          <Typography variant="h3" component="span">
+            {formattedPrice}
+          </Typography>
+          <Typography variant="subtitle1" component="span" color="text.secondary">
+            /{period}
+          </Typography>
+        </Box>
+        <UserSelector userCount={userCount} onChange={onUserCountChange} />
+        <FeatureList features={features} />
+        <Button
+          variant={isPopular ? "contained" : "outlined"}
+          color="primary"
+          size="large"
+          fullWidth
+          sx={{ mt: 3 }}
+        >
+          Get Started
+        </Button>
+      </CardContent>
+    </Card>
   );
 };

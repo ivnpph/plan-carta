@@ -1,7 +1,9 @@
 
 import { useState } from "react";
+import { Container, Grid, Typography, Box } from "@mui/material";
 import { PricingCard } from "../components/pricing/PricingCard";
 import { BillingToggle } from "../components/pricing/BillingToggle";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 const MONTHLY_PRICES = {
   essential: 12,
@@ -10,6 +12,44 @@ const MONTHLY_PRICES = {
 };
 
 const ANNUAL_DISCOUNT = 0.8; // 20% off
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#9b87f5",
+      light: "#e5deff",
+      dark: "#7e69ab",
+    },
+  },
+  typography: {
+    h1: {
+      fontSize: "3rem",
+      fontWeight: 700,
+      lineHeight: 1.2,
+    },
+    h5: {
+      fontWeight: 600,
+    },
+  },
+  components: {
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          borderRadius: 16,
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+          textTransform: "none",
+          padding: "10px 22px",
+        },
+      },
+    },
+  },
+});
 
 const Index = () => {
   const [isAnnual, setIsAnnual] = useState(false);
@@ -28,73 +68,81 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      <div className="container px-4 py-16 mx-auto">
-        <div className="text-center max-w-3xl mx-auto">
-          <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-            Simple, transparent pricing
-          </h1>
-          <p className="mt-6 text-lg leading-8 text-gray-600">
-            Choose the perfect plan for your needs. All plans include a 14-day free
-            trial.
-          </p>
-        </div>
+    <ThemeProvider theme={theme}>
+      <Box sx={{ minHeight: "100vh", bgcolor: "grey.50" }}>
+        <Container maxWidth="lg" sx={{ py: 8 }}>
+          <Box sx={{ textAlign: "center", mb: 8 }}>
+            <Typography variant="h1" component="h1" gutterBottom>
+              Simple, transparent pricing
+            </Typography>
+            <Typography variant="h5" color="text.secondary">
+              Choose the perfect plan for your needs. All plans include a 14-day
+              free trial.
+            </Typography>
+          </Box>
 
-        <div className="mt-12">
           <BillingToggle onChange={setIsAnnual} />
-        </div>
 
-        <div className="grid grid-cols-1 gap-8 mt-12 lg:grid-cols-3">
-          <PricingCard
-            title="Essential"
-            price={getPriceWithDiscount(MONTHLY_PRICES.essential)}
-            period={isAnnual ? "year" : "month"}
-            features={[
-              "Up to 10 projects",
-              "Basic analytics",
-              "24/7 email support",
-              "2 team members",
-            ]}
-            userCount={userCounts.essential}
-            onUserCountChange={(count) =>
-              handleUserCountChange("essential", count)
-            }
-          />
-          <PricingCard
-            title="Premium"
-            price={getPriceWithDiscount(MONTHLY_PRICES.premium)}
-            period={isAnnual ? "year" : "month"}
-            features={[
-              "Unlimited projects",
-              "Advanced analytics",
-              "Priority support",
-              "10 team members",
-              "Custom integrations",
-            ]}
-            isPopular
-            userCount={userCounts.premium}
-            onUserCountChange={(count) => handleUserCountChange("premium", count)}
-          />
-          <PricingCard
-            title="Enterprise"
-            price={getPriceWithDiscount(MONTHLY_PRICES.enterprise)}
-            period={isAnnual ? "year" : "month"}
-            features={[
-              "Unlimited everything",
-              "Custom analytics",
-              "Dedicated support",
-              "Unlimited team members",
-              "Advanced security",
-              "Custom branding",
-            ]}
-            userCount={userCounts.enterprise}
-            onUserCountChange={(count) =>
-              handleUserCountChange("enterprise", count)
-            }
-          />
-        </div>
-      </div>
-    </div>
+          <Grid container spacing={4}>
+            <Grid item xs={12} md={4}>
+              <PricingCard
+                title="Essential"
+                price={getPriceWithDiscount(MONTHLY_PRICES.essential)}
+                period={isAnnual ? "year" : "month"}
+                features={[
+                  "Up to 10 projects",
+                  "Basic analytics",
+                  "24/7 email support",
+                  "2 team members",
+                ]}
+                userCount={userCounts.essential}
+                onUserCountChange={(count) =>
+                  handleUserCountChange("essential", count)
+                }
+              />
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <PricingCard
+                title="Premium"
+                price={getPriceWithDiscount(MONTHLY_PRICES.premium)}
+                period={isAnnual ? "year" : "month"}
+                features={[
+                  "Unlimited projects",
+                  "Advanced analytics",
+                  "Priority support",
+                  "10 team members",
+                  "Custom integrations",
+                ]}
+                isPopular
+                userCount={userCounts.premium}
+                onUserCountChange={(count) =>
+                  handleUserCountChange("premium", count)
+                }
+              />
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <PricingCard
+                title="Enterprise"
+                price={getPriceWithDiscount(MONTHLY_PRICES.enterprise)}
+                period={isAnnual ? "year" : "month"}
+                features={[
+                  "Unlimited everything",
+                  "Custom analytics",
+                  "Dedicated support",
+                  "Unlimited team members",
+                  "Advanced security",
+                  "Custom branding",
+                ]}
+                userCount={userCounts.enterprise}
+                onUserCountChange={(count) =>
+                  handleUserCountChange("enterprise", count)
+                }
+              />
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+    </ThemeProvider>
   );
 };
 

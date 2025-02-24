@@ -1,5 +1,6 @@
 
-import { Check } from "lucide-react";
+import { List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import CheckIcon from "@mui/icons-material/Check";
 
 interface FeatureListProps {
   features: string[];
@@ -7,17 +8,15 @@ interface FeatureListProps {
 
 export const FeatureList = ({ features }: FeatureListProps) => {
   return (
-    <ul className="space-y-4 mt-6">
+    <List sx={{ mt: 2 }}>
       {features.map((feature, index) => (
-        <li
-          key={index}
-          className="feature-list-item"
-          style={{ animationDelay: `${index * 0.1}s` }}
-        >
-          <Check className="w-5 h-5 text-accent" />
-          <span>{feature}</span>
-        </li>
+        <ListItem key={index} sx={{ py: 1 }}>
+          <ListItemIcon>
+            <CheckIcon color="primary" />
+          </ListItemIcon>
+          <ListItemText primary={feature} />
+        </ListItem>
       ))}
-    </ul>
+    </List>
   );
 };

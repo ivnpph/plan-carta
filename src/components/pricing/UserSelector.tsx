@@ -1,5 +1,7 @@
 
-import { Minus, Plus } from "lucide-react";
+import { IconButton, Stack, Typography } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 
 interface UserSelectorProps {
   userCount: number;
@@ -27,24 +29,30 @@ export const UserSelector = ({
   };
 
   return (
-    <div className="flex items-center space-x-4 mt-4">
-      <button
+    <Stack
+      direction="row"
+      spacing={2}
+      alignItems="center"
+      justifyContent="center"
+      sx={{ mt: 2 }}
+    >
+      <IconButton
         onClick={handleDecrement}
         disabled={userCount <= min}
-        className="w-8 h-8 rounded-full flex items-center justify-center border border-gray-200 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+        size="small"
       >
-        <Minus className="w-4 h-4" />
-      </button>
-      <span className="text-lg font-medium min-w-[3ch] text-center">
+        <RemoveIcon />
+      </IconButton>
+      <Typography variant="h6" sx={{ minWidth: "3ch", textAlign: "center" }}>
         {userCount}
-      </span>
-      <button
+      </Typography>
+      <IconButton
         onClick={handleIncrement}
         disabled={userCount >= max}
-        className="w-8 h-8 rounded-full flex items-center justify-center border border-gray-200 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+        size="small"
       >
-        <Plus className="w-4 h-4" />
-      </button>
-    </div>
+        <AddIcon />
+      </IconButton>
+    </Stack>
   );
 };
