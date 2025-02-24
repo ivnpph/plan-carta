@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Container, Grid, Typography, Box } from "@mui/material";
+import { Container, Grid, Typography, Box, Divider } from "@mui/material";
 import { PricingCard } from "../components/pricing/PricingCard";
 import { BillingToggle } from "../components/pricing/BillingToggle";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -27,6 +27,11 @@ const theme = createTheme({
       fontWeight: 700,
       lineHeight: 1.2,
     },
+    h2: {
+      fontSize: "2.5rem",
+      fontWeight: 700,
+      lineHeight: 1.2,
+    },
     h5: {
       fontWeight: 600,
     },
@@ -45,6 +50,14 @@ const theme = createTheme({
           borderRadius: 8,
           textTransform: "none",
           padding: "10px 22px",
+        },
+      },
+    },
+    MuiDivider: {
+      styleOverrides: {
+        root: {
+          borderColor: "rgba(0, 0, 0, 0.08)",
+          boxShadow: "0 1px 2px rgba(0, 0, 0, 0.06)",
         },
       },
     },
@@ -122,6 +135,28 @@ const Index = () => {
               />
             </Grid>
           </Grid>
+
+          <Box sx={{ mt: 8, mb: 8 }}>
+            <Divider />
+          </Box>
+
+          <Box sx={{ textAlign: "center" }}>
+            <Typography variant="h2" component="h2" gutterBottom>
+              Start your journey today
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{
+                fontSize: "1.25rem",
+                color: "text.secondary",
+                maxWidth: "800px",
+                margin: "0 auto",
+              }}
+            >
+              Join thousands of teams who have already transformed their workflow
+              with our powerful platform. Experience the difference today.
+            </Typography>
+          </Box>
         </Container>
       </Box>
     </ThemeProvider>
